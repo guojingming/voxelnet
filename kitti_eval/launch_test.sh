@@ -1,5 +1,7 @@
 # crooped gt dir
-GT_DIR=/media/hdc/KITTI/for_voxelnet/cropped_dataset/validation/label_2
+#GT_DIR=/media/hdc/KITTI/for_voxelnet/cropped_dataset/validation/label_2
+GT_DIR=/home/jlurobot/dl_ws/voxelnet/sample_dataset/validation/label_2
+
 # pred dir
 PRED_DIR=$1
 

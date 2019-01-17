@@ -317,6 +317,7 @@ class RPN3D(object):
                                                    boxes3d, scores[:, np.newaxis]], axis=-1))
 
         if summary:
+            front_images, bird_views, heatmaps = [], [], []
             # only summry 1 in a batch
             cur_tag = tag[0]
             P, Tr, R = load_calib( os.path.join( cfg.CALIB_DIR, cur_tag + '.txt' ) )
@@ -338,7 +339,11 @@ class RPN3D(object):
                 self.bv_heatmap: heatmap[np.newaxis, ...]
             })
 
-            return tag, ret_box3d_score, ret_summary
+            front_images.append(front_image)
+            bird_views.append(bird_view)
+            heatmaps.append(heatmap)
+
+            return tag, ret_box3d_score, front_images, bird_views, heatmaps#, ret_summary
         
         if vis:
             front_images, bird_views, heatmaps = [], [], []

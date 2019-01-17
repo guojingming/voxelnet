@@ -79,22 +79,28 @@ def align_img_and_pc(img_dir, pc_dir, calib_dir):
     return points
 
 # update the following directories
-IMG_ROOT = '/media/hdc/KITTI/image/training/image_2/'
-PC_ROOT = '/media/hdc/KITTI/point_cloud/raw_bin_files/training/velodyne/'
-CALIB_ROOT = '/media/hdc/KITTI/calib/data_object_calib/training/calib/'
+#IMG_ROOT = '/media/hdc/KITTI/image/training/image_2/'
+#PC_ROOT = '/media/hdc/KITTI/point_cloud/raw_bin_files/training/velodyne/'
+#CALIB_ROOT = '/media/hdc/KITTI/calib/data_object_calib/training/calib/'
 
+IMG_ROOT = '/home/jlurobot/dl_ws/voxelnet/ori_dataset/image/training/image_2/'
+PC_ROOT = '/home/jlurobot/dl_ws/voxelnet/ori_dataset/point/training/velodyne/'
+CALIB_ROOT = '/home/jlurobot/dl_ws/voxelnet/ori_dataset/calib/training/calib/'
 
+OUT_ROOT = '/home/jlurobot/dl_ws/voxelnet/sample_dataset/validation/velodyne/'
 
-for frame in range(0, 7481):
+for frame in range(0, 7480):
+#for frame in range(0, 1500):
     img_dir = IMG_ROOT + '%06d.png' % frame
     pc_dir = PC_ROOT + '%06d.bin' % frame
     calib_dir = CALIB_ROOT + '%06d.txt' % frame
 
     points = align_img_and_pc(img_dir, pc_dir, calib_dir)
     
-    output_name = PC_ROOT + frame + '.bin'
+    #output_name = PC_ROOT + frame + '.bin'
+    output_name = OUT_ROOT + str(frame) + '.bin'
     points[:,:4].astype('float32').tofile(output_name)
-
+    print("finished {0}".format(output_name))
 
 
 

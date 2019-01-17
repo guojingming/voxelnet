@@ -34,7 +34,8 @@ class Processor:
             if not self.is_testset:
                 labels = [line for line in open(self.f_label[load_index], 'r').readlines()]
             else:
-                labels = ['']
+                #labels = ['']
+                labels = []
             tag = self.data_tag[load_index]
             voxel = process_pointcloud(raw_lidar)
             ret = [tag, rgb, raw_lidar, voxel, labels]
@@ -63,6 +64,9 @@ def iterate_data(data_dir, shuffle=False, aug=False, is_testset=False, batch_siz
         np.random.shuffle(indices)
 
     num_batches = int(math.floor( nums / float(batch_size) ))
+
+
+    print("{0} {1} {2} {3} {4} {5} {6}".format(len(data_tag), len(f_rgb), len(f_lidar), len(f_label), str(data_dir), aug, is_testset))
 
     proc=Processor(data_tag, f_rgb, f_lidar, f_label, data_dir, aug, is_testset)
 

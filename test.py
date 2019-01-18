@@ -60,10 +60,8 @@ if __name__ == '__main__':
             if tf.train.get_checkpoint_state(save_model_dir):
                 print("Reading model parameters from %s" % save_model_dir)
                 model.saver.restore(sess, tf.train.latest_checkpoint(save_model_dir))
-            ####
-            sess.run(tf.global_variables_initializer())
-            ####
-            for batch in iterate_data(val_dir, shuffle=False, aug=False, is_testset=False, batch_size=args.single_batch_size * cfg.GPU_USE_COUNT, multi_gpu_sum=cfg.GPU_USE_COUNT):
+
+            for batch in iterate_data(val_dir, shuffle=False, aug=False, is_testset=True, batch_size=args.single_batch_size * cfg.GPU_USE_COUNT, multi_gpu_sum=cfg.GPU_USE_COUNT):
 
                 if args.vis:
                     tags, results, front_images, bird_views, heatmaps = model.predict_step(sess, batch, summary=False, vis=True)
@@ -89,7 +87,7 @@ if __name__ == '__main__':
                    print('write out {} objects to {}'.format(len(labels), tag))
                    cv2.imshow("BirdView", bird_view)
                    cv2.imshow("FrontView", front_view)
-                   cv2.waitKey(10)
+                   cv2.waitKey(0)
                 # dump visualizations
                 if args.vis:
                     for tag, front_image, bird_view, heatmap in zip(tags, front_images, bird_views, heatmaps):

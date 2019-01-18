@@ -294,6 +294,11 @@ class RPN3D(object):
         ret_score = []
         for batch_id in range(len(self.avail_gpus) * self.single_batch_size):
             # remove box with low score
+            #score_rank = batch_probs[0].tolist()
+            #max_score = max(score_rank)
+            #max_index = score_rank.index(max_score)
+            #print("Max score:{0}".format(max_score))
+
             ind = np.where(batch_probs[batch_id, :] >= cfg.RPN_SCORE_THRESH)[0]
             tmp_boxes3d = batch_boxes3d[batch_id, ind, ...]
             tmp_boxes2d = batch_boxes2d[batch_id, ind, ...]
